@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>ESPRESSO - Eksplorasi Spasial Persebaran Usaha dan Online Shop</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
 <style>
 
@@ -20,8 +31,8 @@
 
 body{
     font-family:'Poppins',sans-serif;
-    background:#f8f5f1;
     overflow:hidden;
+    background:#f8f5f1;
     color:#4b382a;
 }
 
@@ -30,12 +41,12 @@ body{
 #splash{
     position:fixed;
     inset:0;
-    background:linear-gradient(135deg,#f6e7d8,#ead2b7);
     z-index:99999;
     display:flex;
-    align-items:center;
-    justify-content:center;
     flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#f7e7d7,#ead2b7);
     transition:1s;
 }
 
@@ -44,19 +55,19 @@ body{
     height:110px;
     border-radius:50%;
     background:#8b5e3c;
+    color:white;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:white;
     font-size:48px;
     box-shadow:0 10px 30px rgba(0,0,0,.2);
     animation:float 2s ease-in-out infinite;
 }
 
 @keyframes float{
-    0%{transform:translateY(0px);}
+    0%{transform:translateY(0);}
     50%{transform:translateY(-10px);}
-    100%{transform:translateY(0px);}
+    100%{transform:translateY(0);}
 }
 
 #splash h1{
@@ -73,9 +84,9 @@ body{
 }
 
 .loader{
-    margin-top:25px;
     width:180px;
     height:6px;
+    margin-top:25px;
     background:#e0c7ab;
     border-radius:20px;
     overflow:hidden;
@@ -86,8 +97,7 @@ body{
     width:40%;
     height:100%;
     background:#8b5e3c;
-    border-radius:20px;
-    animation:loading 1.2s infinite;
+    animation:loading 1.3s infinite;
 }
 
 @keyframes loading{
@@ -99,29 +109,28 @@ body{
 
 #app{
     display:none;
-    height:100vh;
     width:100%;
+    height:100vh;
 }
 
+/* SIDEBAR */
+
 .sidebar{
-    width:360px;
-    background:#fffaf5;
-    height:100%;
+    width:380px;
     overflow-y:auto;
+    background:#fffaf5;
     border-right:1px solid #eadfd2;
     box-shadow:2px 0 10px rgba(0,0,0,.05);
-    z-index:1000;
 }
 
 .sidebar-header{
     padding:24px;
-    background:linear-gradient(135deg,#8b5e3c,#b87b4b);
     color:white;
+    background:linear-gradient(135deg,#8b5e3c,#b87b4b);
 }
 
 .sidebar-header h2{
-    font-size:28px;
-    font-weight:700;
+    font-size:30px;
 }
 
 .sidebar-header p{
@@ -137,14 +146,16 @@ body{
 .filter-box input,
 .filter-box select{
     width:100%;
+    border:none;
+    outline:none;
     padding:12px 14px;
     margin-bottom:12px;
-    border:none;
     border-radius:14px;
     background:#f3ece6;
     font-size:14px;
-    outline:none;
 }
+
+/* STATS */
 
 .stats{
     display:grid;
@@ -155,8 +166,8 @@ body{
 
 .card{
     background:white;
-    border-radius:18px;
     padding:18px;
+    border-radius:18px;
     box-shadow:0 4px 15px rgba(0,0,0,.05);
 }
 
@@ -166,11 +177,36 @@ body{
 }
 
 .card p{
-    font-size:26px;
     margin-top:8px;
+    font-size:24px;
     font-weight:700;
     color:#8b5e3c;
 }
+
+/* TOP KEC */
+
+.top-kecamatan{
+    margin:0 20px 20px;
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.top-kecamatan h3{
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+.top-kecamatan-item{
+    padding:10px 0;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* LIST */
 
 .list-container{
     padding:0 20px 20px;
@@ -181,9 +217,9 @@ body{
     border-radius:16px;
     padding:16px;
     margin-bottom:14px;
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
-    transition:.3s;
     cursor:pointer;
+    transition:.3s;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
 }
 
 .merchant-card:hover{
@@ -193,18 +229,19 @@ body{
 .merchant-card h4{
     font-size:15px;
     margin-bottom:6px;
-    color:#5a3f2e;
 }
 
 .badge{
     display:inline-block;
     padding:4px 10px;
+    border-radius:20px;
     background:#f2dfcf;
     color:#8b5e3c;
-    border-radius:20px;
     font-size:11px;
     margin-top:8px;
 }
+
+/* MAP */
 
 .map-container{
     flex:1;
@@ -232,19 +269,58 @@ body{
     color:#6f4e37;
 }
 
+/* POPUP */
+
 .leaflet-popup-content-wrapper{
     border-radius:18px;
 }
 
 .popup-title{
     font-weight:700;
+    margin-bottom:8px;
     color:#6f4e37;
-    margin-bottom:6px;
 }
 
 .popup-detail{
     font-size:13px;
     margin-bottom:4px;
+}
+
+/* CLUSTER */
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large{
+    background:transparent !important;
+}
+
+.marker-cluster div{
+    border:none !important;
+}
+
+/* HILANGKAN KOTAK HITAM */
+
+.leaflet-markercluster-cover{
+    display:none !important;
+}
+
+.leaflet-cluster polygon{
+    display:none !important;
+}
+
+path.leaflet-interactive{
+    outline:none !important;
+}
+
+/* TOOLTIP */
+
+.leaflet-tooltip{
+    background:white;
+    border:none;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+    padding:10px 12px;
+    font-family:'Poppins',sans-serif;
 }
 
 </style>
@@ -255,18 +331,24 @@ body{
 <!-- SPLASH -->
 
 <div id="splash">
+
     <div class="logo-circle">☕</div>
+
     <h1>ESPRESSO</h1>
+
     <p>Eksplorasi Spasial Persebaran Usaha dan Online Shop</p>
 
     <div class="loader">
         <span></span>
     </div>
+
 </div>
 
 <!-- APP -->
 
 <div id="app">
+
+    <!-- SIDEBAR -->
 
     <div class="sidebar">
 
@@ -277,7 +359,11 @@ body{
 
         <div class="filter-box">
 
-            <input type="text" id="searchInput" placeholder="Cari merchant...">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari merchant..."
+            >
 
             <select id="categoryFilter">
                 <option value="">Semua Kategori</option>
@@ -289,7 +375,10 @@ body{
 
         </div>
 
+        <!-- STATS -->
+
         <div class="stats">
+
             <div class="card">
                 <h3>Total Merchant</h3>
                 <p id="totalMerchant">0</p>
@@ -299,11 +388,26 @@ body{
                 <h3>Total Kecamatan</h3>
                 <p id="totalKec">0</p>
             </div>
+
         </div>
+
+        <!-- TOP KEC -->
+
+        <div class="top-kecamatan">
+
+            <h3>🏆 Kecamatan Terbanyak</h3>
+
+            <div id="topKecamatanList"></div>
+
+        </div>
+
+        <!-- LIST -->
 
         <div class="list-container" id="merchantList"></div>
 
     </div>
+
+    <!-- MAP -->
 
     <div class="map-container">
 
@@ -317,12 +421,17 @@ body{
 
 </div>
 
+<!-- LIBRARY -->
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
 <script>
 
-// SPLASH
+/* SPLASH */
 
 setTimeout(() => {
 
@@ -331,27 +440,103 @@ setTimeout(() => {
     setTimeout(() => {
 
         document.getElementById('splash').style.display = 'none';
+
         document.getElementById('app').style.display = 'flex';
 
-    }, 1000);
+        map.invalidateSize();
 
-}, 2200);
+    },1000);
 
-
-// MAP INIT
-
-const map = L.map('map').setView([-0.0263,109.3425], 12);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution:'© OpenStreetMap'
-}).addTo(map);
+},2000);
 
 
-// DATA SOURCE
+/* MAP */
 
-const SHEET_ID = '1Dl0vLTb6jeDDmpSg1kLUzMLmxz_XI-4JxW3rNcmThWU';
+const map = L.map('map').setView(
+    [-0.0263,109.3425],
+    12
+);
 
-const SHEET_NAME = 'grabgojek';
+L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+        attribution:'© OpenStreetMap'
+    }
+).addTo(map);
+
+
+/* CLUSTER */
+
+const markerCluster =
+L.markerClusterGroup({
+
+    maxClusterRadius:35,
+
+    showCoverageOnHover:false,
+
+    polygonOptions:{
+        stroke:false,
+        fill:false
+    },
+
+    spiderfyOnMaxZoom:true,
+
+    disableClusteringAtZoom:17,
+
+    iconCreateFunction:function(cluster){
+
+        const count =
+            cluster.getChildCount();
+
+        let color = '#8b5e3c';
+
+        if(count < 20){
+            color = '#c8a27a';
+        }
+        else if(count < 100){
+            color = '#a47148';
+        }
+
+        return L.divIcon({
+
+            html:`
+                <div style="
+                    background:${color};
+                    width:42px;
+                    height:42px;
+                    border-radius:50%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    color:white;
+                    font-weight:700;
+                    border:4px solid rgba(255,255,255,.7);
+                    box-shadow:0 4px 10px rgba(0,0,0,.15);
+                ">
+                    ${count}
+                </div>
+            `,
+
+            className:'',
+
+            iconSize:[42,42]
+
+        });
+
+    }
+
+});
+
+map.addLayer(markerCluster);
+
+
+/* DATA */
+
+const SHEET_ID =
+'1Dl0vLTb6jeDDmpSg1kLUzMLmxz_XI-4JxW3rNcmThWU';
+
+const SHEET_NAME =
+'grabgojek';
 
 const sheetURL =
 `https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`;
@@ -359,41 +544,45 @@ const sheetURL =
 const geojsonURL =
 'https://raw.githubusercontent.com/yoviewibowo/repowilkerstat6171/main/final_sls_6171_2025-1.geojson';
 
-// VARIABLE
+
+/* VARIABLE */
 
 let merchantData = [];
-let geojsonData;
 let markers = [];
+let geojsonData;
 
 
-// LOAD DATA
+/* LOAD */
 
 async function loadData(){
 
     try{
 
-        const [sheetRes, geoRes] = await Promise.all([
+        const [sheetRes,geoRes] = await Promise.all([
+
             fetch(sheetURL),
+
             fetch(geojsonURL)
+
         ]);
 
-        merchantData = await sheetRes.json();
+        merchantData =
+            await sheetRes.json();
 
-        geojsonData = await geoRes.json();
+        geojsonData =
+            await geoRes.json();
 
-        console.log('Merchant Loaded:', merchantData.length);
+        renderGeoJSON();
 
-        console.log('GeoJSON Loaded:', geojsonData.features.length);
-
-        renderGeojson();
-
-        processMerchant();
+        renderMerchant();
 
         populateFilters();
 
         renderList(merchantData);
 
-        updateStats();
+        updateStats(merchantData);
+
+        renderTopKecamatan(merchantData);
 
     }catch(err){
 
@@ -406,9 +595,9 @@ async function loadData(){
 }
 
 
-// RENDER GEOJSON
+/* GEOJSON */
 
-function renderGeojson(){
+function renderGeoJSON(){
 
     L.geoJSON(geojsonData,{
 
@@ -416,7 +605,97 @@ function renderGeojson(){
             color:'#8b5e3c',
             weight:1,
             fillColor:'#d9b38c',
-            fillOpacity:0.15
+            fillOpacity:0.03
+        },
+
+        onEachFeature:function(feature,layer){
+
+            layer.on({
+
+                mouseover:function(e){
+
+                    e.target.setStyle({
+                        weight:2,
+                        fillOpacity:0.12
+                    });
+
+                    const usahaDalamPolygon =
+                        merchantData.filter(item => {
+
+                        const lat =
+                            parseFloat(item.latitude);
+
+                        const lng =
+                            parseFloat(item.longitude);
+
+                        if(isNaN(lat) || isNaN(lng))
+                            return false;
+
+                        const point =
+                            turf.point([lng,lat]);
+
+                        return turf.booleanPointInPolygon(
+                            point,
+                            feature
+                        );
+
+                    });
+
+                    const namaSLS =
+                        feature.properties.nmsls ||
+                        feature.properties.sls ||
+                        '-';
+
+                    let isiUsaha = '';
+
+                    usahaDalamPolygon
+                    .slice(0,5)
+                    .forEach(x => {
+
+                        isiUsaha +=
+                        `• ${x.restaurant_name}<br>`;
+
+                    });
+
+                    if(usahaDalamPolygon.length > 5){
+
+                        isiUsaha +=
+                        `<br>+ ${
+                            usahaDalamPolygon.length - 5
+                        } usaha lainnya`;
+
+                    }
+
+                    layer.bindTooltip(`
+
+                        <b>${namaSLS}</b><br>
+
+                        Total Usaha:
+                        ${usahaDalamPolygon.length}
+
+                        <hr>
+
+                        ${isiUsaha}
+
+                    `,{
+                        sticky:true
+                    }).openTooltip();
+
+                },
+
+                mouseout:function(e){
+
+                    e.target.setStyle({
+                        weight:1,
+                        fillOpacity:0.03
+                    });
+
+                    layer.closeTooltip();
+
+                }
+
+            });
+
         }
 
     }).addTo(map);
@@ -424,57 +703,57 @@ function renderGeojson(){
 }
 
 
-// PROCESS MERCHANT
+/* MARKER */
 
-function processMerchant(){
+function renderMerchant(){
 
     merchantData.forEach(item => {
 
-        const lat = parseFloat(item.latitude);
+        const lat =
+            parseFloat(item.latitude);
 
-        const lng = parseFloat(item.longitude);
+        const lng =
+            parseFloat(item.longitude);
 
-        if(isNaN(lat) || isNaN(lng)) return;
-
-        const point = turf.point([lng,lat]);
-
-        let foundSLS = '-';
+        if(isNaN(lat) || isNaN(lng))
+            return;
 
 
-        // DETECT SLS
+        const foodIcon = L.divIcon({
 
-        for(const feature of geojsonData.features){
+            html:`
+                <div style="
+                    width:20px;
+                    height:20px;
+                    border-radius:50%;
+                    background:#8b5e3c;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    color:white;
+                    font-size:9px;
+                    box-shadow:0 2px 6px rgba(0,0,0,.2);
+                ">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+            `,
 
-            if(turf.booleanPointInPolygon(point, feature)){
+            className:'',
 
-                foundSLS =
-                    feature.properties.nmsls ||
-                    feature.properties.nmsubsls ||
-                    '-';
+            iconSize:[20,20],
 
-                break;
+            iconAnchor:[10,10]
 
+        });
+
+
+        const marker = L.marker(
+            [lat,lng],
+            {
+                icon:foodIcon
             }
+        );
 
-        }
-
-        item.sls = foundSLS;
-
-
-        // MARKER
-
-        const marker = L.circleMarker([lat,lng],{
-
-            radius:7,
-            fillColor:'#8b5e3c',
-            color:'#ffffff',
-            weight:1,
-            fillOpacity:0.9
-
-        }).addTo(map);
-
-
-        // POPUP
 
         marker.bindPopup(`
 
@@ -483,30 +762,33 @@ function processMerchant(){
             </div>
 
             <div class="popup-detail">
-                <b>Platform:</b> ${item.platform}
+                <b>Platform:</b>
+                ${item.platform}
             </div>
 
             <div class="popup-detail">
-                <b>Rating:</b> ${item.rating || '-'}
+                <b>Rating:</b>
+                ${item.rating || '-'}
             </div>
 
             <div class="popup-detail">
-                <b>Kategori:</b> ${item.category || '-'}
+                <b>Kategori:</b>
+                ${item.category || '-'}
             </div>
 
             <div class="popup-detail">
-                <b>Kecamatan:</b> ${item.nmkec || '-'}
+                <b>Kecamatan:</b>
+                ${item.nmkec || '-'}
             </div>
 
             <div class="popup-detail">
-                <b>SLS:</b> ${item.sls}
-            </div>
-
-            <div class="popup-detail">
-                <b>Alamat:</b> ${item.address || '-'}
+                <b>Alamat:</b>
+                ${item.address || '-'}
             </div>
 
         `);
+
+        markerCluster.addLayer(marker);
 
         item.marker = marker;
 
@@ -517,71 +799,112 @@ function processMerchant(){
 }
 
 
-// FILTER OPTION
+/* FILTER */
 
 function populateFilters(){
 
     const categories = [
+
         ...new Set(
-            merchantData.map(x => x.category).filter(Boolean)
+
+            merchantData.flatMap(item => {
+
+                if(!item.category) return [];
+
+                return item.category
+                    .split('|')
+                    .map(cat => cat.trim());
+
+            })
+
         )
+
     ];
+
 
     const kecamatan = [
+
         ...new Set(
-            merchantData.map(x => x.nmkec).filter(Boolean)
+
+            merchantData
+            .map(x => x.nmkec)
+            .filter(Boolean)
+
         )
+
     ];
 
+
     const categoryFilter =
-        document.getElementById('categoryFilter');
+        document.getElementById(
+            'categoryFilter'
+        );
 
     const kecamatanFilter =
-        document.getElementById('kecamatanFilter');
+        document.getElementById(
+            'kecamatanFilter'
+        );
 
 
-    categories.forEach(cat => {
+    categories.sort().forEach(cat => {
 
-        categoryFilter.innerHTML +=
-            `<option value="${cat}">${cat}</option>`;
+        categoryFilter.innerHTML += `
+            <option value="${cat}">
+                ${cat}
+            </option>
+        `;
 
     });
 
 
-    kecamatan.forEach(kec => {
+    kecamatan.sort().forEach(kec => {
 
-        kecamatanFilter.innerHTML +=
-            `<option value="${kec}">${kec}</option>`;
+        kecamatanFilter.innerHTML += `
+            <option value="${kec}">
+                ${kec}
+            </option>
+        `;
 
     });
 
 }
 
 
-// RENDER LIST
+/* LIST */
 
 function renderList(data){
 
     const container =
-        document.getElementById('merchantList');
+        document.getElementById(
+            'merchantList'
+        );
 
     container.innerHTML = '';
 
     data.forEach(item => {
 
-        const card = document.createElement('div');
+        const card =
+            document.createElement('div');
 
-        card.className = 'merchant-card';
+        card.className =
+            'merchant-card';
 
         card.innerHTML = `
 
-            <h4>${item.restaurant_name}</h4>
+            <h4>
+                ${item.restaurant_name}
+            </h4>
 
-            <div style="font-size:13px;margin-bottom:6px;">
+            <div style="
+                font-size:13px;
+                margin-bottom:6px;
+            ">
                 ⭐ ${item.rating || '-'}
             </div>
 
-            <div style="font-size:12px;">
+            <div style="
+                font-size:12px;
+            ">
                 ${item.nmkec || '-'}
             </div>
 
@@ -591,13 +914,15 @@ function renderList(data){
 
         `;
 
-
         card.onclick = () => {
 
-            map.setView([
-                parseFloat(item.latitude),
-                parseFloat(item.longitude)
-            ],17);
+            map.setView(
+                [
+                    parseFloat(item.latitude),
+                    parseFloat(item.longitude)
+                ],
+                18
+            );
 
             item.marker.openPopup();
 
@@ -610,97 +935,183 @@ function renderList(data){
 }
 
 
-// UPDATE STATS
+/* STATS */
 
-function updateStats(){
+function updateStats(data){
 
-    document.getElementById('totalMerchant')
-        .innerText = merchantData.length;
+    document.getElementById(
+        'totalMerchant'
+    ).innerText =
+        data.length;
 
     const kec = [
+
         ...new Set(
-            merchantData.map(x => x.nmkec)
+            data.map(x => x.nmkec)
         )
+
     ];
 
-    document.getElementById('totalKec')
-        .innerText = kec.length;
+    document.getElementById(
+        'totalKec'
+    ).innerText =
+        kec.length;
 
 }
 
 
-// APPLY FILTER
+/* TOP KEC */
+
+function renderTopKecamatan(data){
+
+    const topContainer =
+        document.getElementById(
+            'topKecamatanList'
+        );
+
+    topContainer.innerHTML = '';
+
+    const count = {};
+
+    data.forEach(item => {
+
+        if(!count[item.nmkec]){
+
+            count[item.nmkec] = 0;
+
+        }
+
+        count[item.nmkec]++;
+
+    });
+
+
+    const sorted = Object.entries(count)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,5);
+
+
+    sorted.forEach(item => {
+
+        topContainer.innerHTML += `
+
+            <div class="top-kecamatan-item">
+
+                <span>${item[0]}</span>
+
+                <b>${item[1]}</b>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* APPLY FILTER */
 
 function applyFilter(){
 
     const search =
-        document.getElementById('searchInput')
-        .value.toLowerCase();
+        document.getElementById(
+            'searchInput'
+        )
+        .value
+        .toLowerCase();
 
     const category =
-        document.getElementById('categoryFilter')
-        .value;
+        document.getElementById(
+            'categoryFilter'
+        ).value;
 
     const kec =
-        document.getElementById('kecamatanFilter')
-        .value;
+        document.getElementById(
+            'kecamatanFilter'
+        ).value;
 
 
-    const filtered = merchantData.filter(item => {
+    const filtered =
+        merchantData.filter(item => {
 
         return (
 
             item.restaurant_name
-                .toLowerCase()
-                .includes(search)
+            .toLowerCase()
+            .includes(search)
 
             &&
 
-            (category === '' ||
-             item.category === category)
+            (
+                category === ''
+                ||
+
+                (
+                    item.category &&
+                    item.category.includes(category)
+                )
+            )
 
             &&
 
-            (kec === '' ||
-             item.nmkec === kec)
+            (
+                kec === ''
+                ||
+                item.nmkec === kec
+            )
 
         );
 
     });
 
 
-    markers.forEach(marker => {
-
-        map.removeLayer(marker);
-
-    });
+    markerCluster.clearLayers();
 
 
     filtered.forEach(item => {
 
-        item.marker.addTo(map);
+        markerCluster.addLayer(
+            item.marker
+        );
 
     });
 
+
+    updateStats(filtered);
+
+    renderTopKecamatan(filtered);
 
     renderList(filtered);
 
 }
 
 
-// EVENT
+/* EVENT */
 
-document.getElementById('searchInput')
-.addEventListener('input', applyFilter);
+document
+.getElementById('searchInput')
+.addEventListener(
+    'input',
+    applyFilter
+);
 
-document.getElementById('categoryFilter')
-.addEventListener('change', applyFilter);
+document
+.getElementById('categoryFilter')
+.addEventListener(
+    'change',
+    applyFilter
+);
 
-document.getElementById('kecamatanFilter')
-.addEventListener('change', applyFilter);
+document
+.getElementById('kecamatanFilter')
+.addEventListener(
+    'change',
+    applyFilter
+);
 
 
-// START
+/* START */
 
 loadData();
 
